@@ -1,4 +1,4 @@
-import { RECEIVE_POLLS } from '../actions/pollsActions.js'
+import { RECEIVE_POLLS, ADD_POLL } from '../actions/pollsActions.js'
 
 export default function pollsRedusers (state = {}, action) {
     switch (action.type) {
@@ -7,7 +7,13 @@ export default function pollsRedusers (state = {}, action) {
                 ...state,
                 ...action.polls
             };
-    
+
+        case ADD_POLL:
+            return {
+                ...state,
+                [action.poll.id]: action.poll
+            };
+
         default:
             return state;
     };

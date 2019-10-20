@@ -22,14 +22,13 @@ class App extends React.Component {
         key={route.url}
       />
     );
-    console.log(routesComponent);
     
     return (
       <Router>
         <Switch>
           {this.props.loading
-            ? <LoadingBar />
-            :routesComponent}
+          ? <LoadingBar />
+          :routesComponent}  
         </Switch>
       </Router>
     );

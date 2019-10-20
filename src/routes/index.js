@@ -1,18 +1,32 @@
-import Polls from '../pages/pollsPage.js';
+import Home from '../pages/pollsPage.js';
+import Leaderboard from '../pages/LeaderboardPage.js';
+import AddPoll from '../pages/addPollPage.js';
+import Poll from '../pages/pollPage.js';
 import E404 from '../pages/error404Page.js';
-import Test from '../pages/testPage.js'
 
 const routes = [
     {
-        name: 'polls',
+        name: 'home',
         url: '/',
-        component: Polls,
+        component: Home,
         exact: true
     },
     {
-        name: 'test',
-        url: '/test',
-        component: Test,
+        name: 'leaderboard',
+        url: '/leaderboard',
+        component: Leaderboard,
+        exact: true
+    },
+    {
+        name: 'addPoll',
+        url: '/addpoll',
+        component: AddPoll,
+        exact: true
+    },
+    {
+        name: 'poll',
+        url: '/poll',
+        component: Poll,
         exact: true
     },
     {

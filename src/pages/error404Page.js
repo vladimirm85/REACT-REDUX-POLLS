@@ -1,4 +1,14 @@
 import React from 'react';
-import E404 from '../components/404.js';
+import { Link } from 'react-router-dom';
+import { RoutesMap } from '../routes';
 
-export default () => <E404/>;
+export default () =>
+    <div>
+        <h1>Error 404, page not found</h1>
+        <hr/>
+        <div>
+            <p>                     
+                <Link to={RoutesMap.home}>Go to home page</Link>
+            </p>
+        </div>
+    </div>
