@@ -25,7 +25,7 @@ const routes = [
     },
     {
         name: 'poll',
-        url: '/poll',
+        url: '/poll/:id',
         component: Poll,
         exact: true
     },
@@ -34,7 +34,7 @@ const routes = [
         component: E404,
     }
 ];
-/*
+
 const UrlBuild = function (name, params) {
     
     if(!RoutesMap.hasOwnProperty(name)) {
@@ -49,7 +49,7 @@ const UrlBuild = function (name, params) {
     
     return url;
 };
-*/
+
 const RoutesMap = {};
 
 routes.forEach((route) => {
@@ -59,4 +59,4 @@ routes.forEach((route) => {
 });
 
 export default routes;
-export { RoutesMap };
+export { RoutesMap, UrlBuild };

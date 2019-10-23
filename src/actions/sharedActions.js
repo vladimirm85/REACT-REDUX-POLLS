@@ -12,8 +12,8 @@ export function handleInitialData () {
         return getInitialData().then(({users, polls}) => {
             dispatch(receivePolls(polls));
             dispatch(receiveUsers(users));
-            dispatch(setAuthedUser(AUTHED_ID))
-            dispatch(hideLoading());
-        });
+            dispatch(setAuthedUser(AUTHED_ID));
+        }).catch(error => console.log('Error ' + error))
+        .finally(() => dispatch(hideLoading()));
     };
 };

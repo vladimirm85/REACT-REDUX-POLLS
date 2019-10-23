@@ -6,7 +6,7 @@ import {
   Route,
   Switch,
   NavLink} from 'react-router-dom';
-import routesList, { RoutesMap } from '../routes';
+import routesList from '../routes';
 import { handleInitialData } from '../actions/sharedActions.js';
 
 class App extends React.Component {
@@ -25,11 +25,33 @@ class App extends React.Component {
     
     return (
       <Router>
-        <Switch>
-          {this.props.loading
-          ? <LoadingBar />
-          :routesComponent}  
-        </Switch>
+        <LoadingBar />
+        <div className='container'>
+          <nav className='nav'>
+            <ul>
+              <li>
+                <NavLink to='/' exact activeClassName='active'>
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/leaderboard' activeClassName='active'>
+                  Leaderboard
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/addpoll' activeClassName='active'>
+                  Add Poll
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+          <Switch>
+            {this.props.loading
+            ? null
+            :routesComponent}  
+          </Switch>
+        </div>
       </Router>
     );
   };

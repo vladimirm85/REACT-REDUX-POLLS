@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
+import { UrlBuild } from '../routes';
 
 class Polls extends React.Component {
     state = {
@@ -25,7 +27,9 @@ class Polls extends React.Component {
 
         const pollsList = polls.map(poll =>
             <li key={poll.id}>
-                {poll.question}
+                <Link to={UrlBuild('poll', {id: poll.id})}>
+                    {poll.question}
+                </Link>
             </li>
         );
 
