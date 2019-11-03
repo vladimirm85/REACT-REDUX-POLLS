@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Leaderboard = ({ users }) =>
     <ul>
-        {users.map((user) => (
+        {users.map(user => (
             <li className='user' key={user.id}>
                 <img src={user.avatarURL}
                      alt={`Avatar for ${user.name}`}
@@ -17,13 +18,15 @@ const Leaderboard = ({ users }) =>
         ))}
     </ul>;
 
-
+Leaderboard.propTypes = {
+    users: PropTypes.array.isRequired
+};
 
 const mapStateProps = ({ users }) => {
     return {
         users: Object.keys(users)
             .map(id => {
-                const { name, avatarURL, polls, answers } = users[id]
+                const { name, avatarURL, polls, answers } = users[id];
 
                 return {
                     id,

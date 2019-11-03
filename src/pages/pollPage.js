@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getPercentage } from '../utils/helpers';
 import E404 from '../components/404.js';
 import { handleAddAnswer } from '../actions/answersAction.js';
@@ -10,12 +11,13 @@ class Poll extends React.Component {
 
     handleAnswer = answer => {
         const { poll, authedUser } = this.props;
+
         this.answered = true;
-        this.props.dispatch(handleAddAnswer({
+        this.props.handleAddAnswer({
             authedUser,
             answer,
             id: poll.id
-        }));
+        });
     }
 
     render() {
@@ -28,6 +30,7 @@ class Poll extends React.Component {
         const totalVotes = getVoteKeys().reduce((total, key) => total + poll[key].length, 0);
         const optionList = ['aText', 'bText', 'cText', 'dText'].map(key => {
             const count = poll[key[0] + 'Votes'].length;
+
             return (
                 <li
                     key={key}
@@ -63,8 +66,14 @@ class Poll extends React.Component {
     }
 };
 
+Poll.propTypes = {
+    authedUser: PropTypes.string.isRequired,
+    polls: PropTypes.array.isRequired,
+    users: PropTypes.array.isRequired,
+    match: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = ({ authedUser, polls, users }, { match }) => {
-    
     const { id } = match.params;
     const poll = polls[id];
 
@@ -92,4 +101,8 @@ const mapStateToProps = ({ authedUser, polls, users }, { match }) => {
     };
 };
 
-export default connect(mapStateToProps)(Poll);
+const mapDispatchToProps = dispatch => ({
+    handleAddAnswer: newAnswer => dispatch(handleAddAnswer(newAnswer))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Poll);

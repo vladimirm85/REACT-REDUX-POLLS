@@ -11,8 +11,9 @@ class AddPoll extends React.Component {
         d: '',
     };
 
-    handleInputChange = (e) => {
+    handleInputChange = e => {
         const { value, name } = e.target;
+        
         this.setState({[name]: value});
     };
 
@@ -26,7 +27,7 @@ class AddPoll extends React.Component {
             || d === ''
     };
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         e.preventDefault();
         this.props.history.push('/');
         this.props.dispatch(handleAddPoll(this.state))
@@ -43,8 +44,7 @@ class AddPoll extends React.Component {
                     onChange={this.handleInputChange}
                     name='question'
                     className='input'
-                    type='text'
-                />
+                    type='text' />
 
                 <h3>What are the options?</h3>
 
@@ -55,8 +55,7 @@ class AddPoll extends React.Component {
                     name='a'
                     className='input'
                     id='a'
-                    type='text'
-                />
+                    type='text' />
 
                 <label className='label' htmlFor='b'>B.</label>
                 <input
@@ -65,8 +64,7 @@ class AddPoll extends React.Component {
                     name='b'
                     className='input'
                     id='b'
-                    type='text'
-                />
+                    type='text' />
 
                 <label className='label' htmlFor='c'>C.</label>
                 <input
@@ -75,8 +73,7 @@ class AddPoll extends React.Component {
                     name='c'
                     className='input'
                     id='c'
-                    type='text'
-                />
+                    type='text' />
 
                 <label className='label' htmlFor='d'>D.</label>
                 <input
@@ -85,10 +82,12 @@ class AddPoll extends React.Component {
                     name='d'
                     className='input'
                     id='d'
-                    type='text'
-                />
+                    type='text' />
 
-                <button className='btn' type='submit' disabled={this.isDisabled()}>
+                <button
+                    className='btn'
+                    type='submit'
+                    disabled={this.isDisabled()}>
                     Submit
                 </button>
             </form>

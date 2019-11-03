@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { UrlBuild } from '../routes';
 
 class Polls extends React.Component {
@@ -18,10 +19,10 @@ class Polls extends React.Component {
 
 
     render() {
-        const { showAnswered } = this.state
-        const { answered, unanswered } = this.props
+        const { showAnswered } = this.state;
+        const { answered, unanswered } = this.props;
 
-        const polls = showAnswered === true
+        const polls = showAnswered
             ? answered
             : unanswered;
 
@@ -30,23 +31,20 @@ class Polls extends React.Component {
                 <Link to={UrlBuild('poll', {id: poll.id})}>
                     {poll.question}
                 </Link>
-            </li>
-        );
+            </li>);
 
         return (
             <div>
                 <div className='dashboard-toggle'>
                     <button
-                        style={{ textDecoration: showAnswered === false ? 'underline' : null }}
-                        onClick={this.showUnaswered}
-                    >
+                        style={{ textDecoration: !showAnswered ? 'underline' : null }}
+                        onClick={this.showUnaswered}>
                         Unanswered
                     </button>
                     <span> | </span>
                     <button
-                        style={{ textDecoration: showAnswered === true ? 'underline' : null }}
-                        onClick={this.showAnswered}
-                    >
+                        style={{ textDecoration: showAnswered ? 'underline' : null }}
+                        onClick={this.showAnswered}>
                         Answered
                     </button>
                 </div>
@@ -58,16 +56,29 @@ class Polls extends React.Component {
     };
 };
 
+Polls.defaultProps = {
+    authedUser: '',
+    polls: [],
+    users: []
+}
+
+
+Polls.propTypes = {
+    authedUser: PropTypes.string,
+    polls: PropTypes.array,
+    users: PropTypes.array
+};
+
 function mapStateToProps({ polls, users, authedUser }) {
     const answers = users[authedUser].answers;
 
     const answered = answers.map((id) => polls[id])
-        .sort((a, b) => b.timestamp - a.timestamp)
+        .sort((a, b) => b.timestamp - a.timestamp);
 
     const unanswered = Object.keys(polls)
         .filter((id) => !answers.includes(id))
         .map((id) => polls[id])
-        .sort((a, b) => b.timestamp - a.timestamp)
+        .sort((a, b) => b.timestamp - a.timestamp);
 
     return {
         answered,

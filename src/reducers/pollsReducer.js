@@ -1,27 +1,28 @@
-import { RECEIVE_POLLS, ADD_POLL } from '../actions/pollsActions.js'
+import { GET_POLLS, ADD_POLL } from '../actions/pollsActions.js'
 import { ADD_ANSWER } from '../actions/answersAction.js';
 
-export default function pollsRedusers(state = {}, action) {
+export default (state = {}, action) => {
     switch (action.type) {
-        case RECEIVE_POLLS:
+
+        case GET_POLLS:
             return {
                 ...state,
-                ...action.polls
+                ...action.payload.polls
             };
 
         case ADD_POLL:
             return {
                 ...state,
-                [action.poll.id]: action.poll
+                [action.payload.poll.id]: action.payload.poll
             };
 
         case ADD_ANSWER:
-            const { answer, id, authedUser } = action;
+            const { answer, id, authedUser } = action.payload;
             const poll = state[id];
             const votesKey = answer + 'Votes';
             return {
                 ...state,
-                [action.id]: {
+                [id]: {
                     ...poll,
                     [votesKey]: poll[votesKey].concat([authedUser])
                 }

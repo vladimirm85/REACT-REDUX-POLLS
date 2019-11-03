@@ -1,8 +1,8 @@
-import polls from './pollsReduser.js';
-import users from './usersReduser.js';
-import authedUser from './authedUserReduser.js';
-import { loadingBarReducer } from 'react-redux-loading'
+import { loadingBarReducer } from 'react-redux-loading-bar'
 import { combineReducers } from 'redux';
+import polls from './pollsReducer.js';
+import users from './usersReducer.js';
+import authedUser from './authedUserReducer.js';
 
 export default combineReducers({
     polls,

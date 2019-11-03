@@ -1,17 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import LoadingBar from 'react-redux-loading'
+import { connect } from 'react-redux';
+import LoadingBar from 'react-redux-loading-bar';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   NavLink} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import routesList from '../routes';
 import { handleInitialData } from '../actions/sharedActions.js';
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.dispatch(handleInitialData());
+    this.props.handleInitialData();
   }
   render() {
     const routesComponent = routesList.map(route => 
@@ -19,8 +20,7 @@ class App extends React.Component {
         path={route.url}
         component={route.component}
         exact={route.exact}
-        key={route.url}
-      />
+        key={route.url} />
     );
     
     return (
@@ -47,7 +47,7 @@ class App extends React.Component {
             </ul>
           </nav>
           <Switch>
-            {this.props.loading
+            {!this.props.isloaded
             ? null
             :routesComponent}  
           </Switch>
@@ -57,10 +57,22 @@ class App extends React.Component {
   };
 };
 
-function mapStateToProps({ authedUser }) {
-  return {
-    loading: authedUser === null
-  };
+App.defaultProps = {
+    loadingBar: {
+        default: 2
+    }
+}
+
+App.propTypes = {
+    loadingBar: PropTypes.object
 };
 
-export default connect(mapStateToProps)(App);
+const mapStateToProps = ({ loadingBar }) => ({
+    isloaded: loadingBar.default === 0,
+});
+
+const mapDispatchToProps = dispatch => ({
+    handleInitialData: () => dispatch(handleInitialData())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,19 +1,23 @@
 import { savePoll } from "../utils/api";
-import { showLoading, hideLoading } from 'react-redux-loading';
-export const RECEIVE_POLLS = 'RECEIVE_POLLS';
-export const ADD_POLL = 'ADD_POLL';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-export const receivePolls = polls => {
+export const GET_POLLS = 'GET_POLLS';
+export const getPolls = polls => {
     return {
-        type: RECEIVE_POLLS,
-        polls
+        type: GET_POLLS,
+        payload: {
+            polls
+        }
     };
 };
 
+export const ADD_POLL = 'ADD_POLL';
 const addPoll = poll => {
     return {
         type: ADD_POLL,
-        poll
+        payload: {
+            poll
+        }
     };
 };
 
@@ -25,7 +29,7 @@ export function handleAddPoll (poll) {
             ...poll,
             author: authedUser
         }).then(poll => dispatch(addPoll(poll)))
-        .catch(error => console.log('Error ' + error))
+        .catch(error => console.log(error))
         .finally(() => dispatch(hideLoading()));
     };
 };

@@ -1,17 +1,18 @@
-import { RECEIVE_USERS } from '../actions/usersActions.js';
+import { GET_USERS } from '../actions/usersActions.js';
 import { ADD_POLL } from '../actions/pollsActions.js';
 import { ADD_ANSWER } from '../actions/answersAction.js';
 
-export default function usersReduser(state = {}, action) {
+export default (state = {}, action) => {
     switch (action.type) {
-        case RECEIVE_USERS:
+
+        case GET_USERS:
             return {
                 ...state,
-                ...action.users
+                ...action.payload.users
             };
 
         case ADD_POLL:
-            const poll = action.poll
+            const poll = action.payload.poll
             const { author, id } = poll
             return {
                 ...state,
@@ -22,12 +23,13 @@ export default function usersReduser(state = {}, action) {
             };
 
         case ADD_ANSWER:
-            const user = state[action.authedUser];
+            const { authedUser } = action.payload;
+            const user = state[authedUser];
             return {
                 ...state,
-                [action.authedUser]: {
+                [authedUser]: {
                     ...user,
-                    answers: user.answers.concat([action.id])
+                    answers: user.answers.concat([action.payload.id])
                 }
             };
 

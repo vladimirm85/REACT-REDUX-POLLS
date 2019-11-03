@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { RoutesMap } from '../routes';
 
-const E404 = () => 
-    <div>
+export default () => 
+    <>
         <h1>Error 404, page not found</h1>
         <hr/>
         <div className="alert alert-warning">
@@ -11,7 +11,4 @@ const E404 = () =>
                 <Link to={RoutesMap.home}>Go to Home page</Link>
             </p>
         </div>
-    </div>
-;
-
-export default E404;
+    </>;
